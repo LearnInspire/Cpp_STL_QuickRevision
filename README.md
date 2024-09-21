@@ -4,7 +4,7 @@ It contains C++ STLs usage and quick help with easy to understand comments and e
 I will be using "int, string etc" for ease and not complex entities like pairs, structs etc 😉. You can replace it with any data structure If you are confused with the syntax or description, see the example. I am sure that will clear things BECAUSE I have specifically chosen
 🔎 "EASY + IMPORTANT + MOST USED" examples. Last but not least, I have added Leetcode Qns also which can be easily solved using STLs
 
-#📝Different ways of using priority_queue (i.e. heap) 🗻
+📝Different ways of using priority_queue (i.e. heap) 🗻
 • Default declarations
 ```cpp
 priority_queue<int> pq;                            //creates max-heap
@@ -60,7 +60,7 @@ auto comp = [&mp](int &a, int &b) {
     return mp[a] < mp[b]; //etc.
 };
 ```
-When and why to use std::move() ⬅️
+📝 When and why to use std::move() ⬅️
 ```cpp
 /*
     To efficiently transfer the resources from source to target.
