@@ -153,3 +153,224 @@ int maximumValue  = *itr.second; //remember, second is maximum //5
 
 Benefit : You didn't have to write for loop to find the max or min element
 ```
+📝 upper_bound(), lower_bound() in sorted vector, ordered set, ordered map 📤
+```
+
+For vector:
+vector<int> vec{10,20,30,30,20,10,10,20};
+vector<int>::iterator up  = upper_bound(begin(vec), end(vec), 35);//returns iterator to first element "greater" than 35
+vector<int>::iterator low = lower_bound(begin(vec), end(vec), 35);//returns iterator to first element "greater or equal" to 35
+cout << "upper_bound at position " << (up - vec.begin()) << '\n';
+cout << "lower_bound at position " << (low- vec.begin()) << '\n';
+
+For set:
+st.upper_bound(35); //returns iterator to first element "greater" than 35
+st.lower_bound(35); //returns iterator to first element "greater or equal" than 35
+
+For map:
+mp.upper_bound(35); //returns iterator to first element "greater" than 35
+mp.lower_bound(35); //returns iterator to first element "greater or equal" than 35
+
+Benefit : You didn't have to write binary search (in case of vector),
+JAVA's tree_map equivalent in C++ (in case of map or set)
+There are amazing applications or problems that can be solved using the above concepts.
+Example : My Calendar I (Leetcode - 729) -
+         You can find it in my interview_ds_algo repository as well B-)
+```
+📝 std::rotate 🌀
+```
+vector<int> vec{1, 2, 3, 4};
+int n = vec.size();
+int k = 2;
+
+rotate(vec.begin(), vec.begin()+k, vec.end());   //Left Rotate by K times
+
+rotate(vec.begin(), vec.begin()+n-k, vec.end()); //Right Rotate by K times
+```
+📝 To check if some rotation of string s can become string t🌀
+```
+string s = "abcde";
+string t = "cdeab";
+
+cout << (s.length() == t.length() && (s+s).find(t) != string::npos) << endl;
+
+```
+📝 std::next_permutation ➡️
+```
+It gives the next lexicographically greater permutation.
+So, if the container is already the greatest permutation (descending order), it returns nothing.
+
+vector<int> vec{1, 2, 3, 4};
+    
+if(next_permutation(begin(vec), end(vec)))
+    cout << "Next permutation available" << endl;
+
+for(int &x : vec)
+    cout << x << " ";
+    
+//Output : 1, 2, 4, 3
+
+Also see : std::prev_permutation() - It gives just the previous lexicographically smaller permutation.
+But I have never encountered any question where it's required till now. So you can skip it.
+    Leetcode - 31  : Next Permutation
+    etc.
+```
+📝 std::stringstream ⏩
+```
+Usage:
+1) Converting string to number
+2) Count number of words in a string
+
+Example-1
+    string s = "12345";
+    stringstream ss(s);
+ 
+    // The object has the value 12345 and stream
+    // it to the integer x
+    int x = 0;
+    ss >> x;
+    cout << x;
+    
+Exmaple-2
+    stringstream s(ss);
+    string word; // to store individual words
+  
+    int count = 0;
+    while (s >> word)
+        count++;
+    cout << count;
+    NOTE: It will tokenize words on the basis of ' ' (space by default) characters
+Example-3
+    It can be used very well to extract numbers from string.
+    string complex = "1+1i";
+    stringstream ss(complex);
+    char justToSkip;
+    int real, imag;
+    ss >> real >> justToSkip >> imag >> justToSkip;
+    cout << real << ", " << imag; //output : 1, 1
+    
+    Other application on this STL :
+    Leetcode - 151  : Reverse Words in a String
+    Leetcode - 186  : Reverse Words in a String II
+    Leetcode - 557  : Reverse Words in a String III
+    Leetcode - 1108 : Defanging an IP Address
+    Leetcode - 1816 : Truncate Sentence
+    Leetcode - 884  : Uncommon Words from Two Sentences
+    Leetcode - 537  : Complex Number Multiplication (Example-3 above)
+    Leetcode - 165  : Compare Version Numbers
+    etc.
+```
+📝 std::transform(InputIterator first1, InputIterator last1, OutputIterator result, UnaryOperation op) 🤖
+```
+Applies an operation sequentially to the elements of one (1) or
+two (2) ranges and stores the result in the range that begins at result.
+Uage :
+1) Convert all letters of a string to lower case
+2) Convert all letters of a string to upper case
+
+Example : 
+    string line = "Hello world, this is MIK";
+
+    transform(begin(line), end(line), begin(line), ::tolower);
+
+    cout << line << endl;
+
+    transform(begin(line), end(line), begin(line), ::toupper);
+
+    cout << line << endl;
+```
+📝 std::regex_replace 📟
+```
+It converts a regular expression given by user to desired expression given by user.
+
+Example : 
+    Ex-1 - Remove all vowels from a string.
+    string s = "mika";
+    auto rgx = regex("[aeiouAEIOU]");
+    cout << regex_replace(s, rgx, "");
+    
+    Ex-2 - Replace all '.' to "[.]"
+    string s = "1.2.3.4";
+    auto rgx = regex("\\.");
+    regex_replace(s, rgx, "[.]");
+    
+    Note : You can write smart regex for achieving amazing replacements.
+    Qns on Leetcode:
+    Leetcode - 1108 : Defanging an IP Address
+    Leetcode - 1119 : Remove Vowels from a String
+    etc.
+```
+📝 std::copy_if 🔢
+```
+Copies the elements to a container
+how copy_if function works : in this function you have to pass four parameters 
+copy_if(begin iterator , end iterator , destination , condition)
+			
+    eg :    vector<int> from_vec = {1,2,3,4,5,6,7,8,9,10};
+            vector<int> to_vec;
+            //here i want to copy all the number from from_vec vector to to_vec vector which are divisible by 2 .
+            
+            copy_if(from_vec.begin(), from_vec.end(), back_inserter(to_vec),[](int n){return n%2==0;});
+            
+            for(auto it : to_vec) 
+                cout<<it<<" ";
+            o/p : 2 4 6 8 10
+Example : 
+    Note : You can write any kind of lambda/comparator functions for matching your required condition
+    Qns on Leetcode:
+    Leetcode - 1796 : Second Largest Digit in a String
+    etc.
+```
+📝 Writing lambda for upper_bound or lower_bound for vector<pair<int, string>> 🔢
+```
+Example-1 : 
+        //Let's say you want upper_bound for a variable timestamp, take it in a pair (because it's a vector of pair)
+        pair<int, string> ref = make_pair(timestamp, "");
+            
+        auto lambda = [](const pair<int, string>& p1, const pair<int, string>& p2) {
+            return p1.first < p2.first;
+        };
+        
+        auto it = upper_bound(begin(my_vector), end(my_vector), ref, lambda);
+	
+Example-2 : 
+        //Let's say you want to find upper_bound of a value in a non-increasing vector.
+	vector<int> vec{1, 0, -1, -2}
+	int idx = upper_bound(begin(vec), end(vec), 0, greater<int>()) - begin(vec);
+	Output will be index of -1 (i.e. 2)
+	
+	Qns on Leetcode:
+    	Leetcode - 981 : Time Based Key-Value Store
+	Leetcode - 744 : Find Smallest Letter Greater Than Target
+	Leetcode - 1351 : Count Negative Numbers in a Sorted Matrix
+```
+📝 Writing lambda for unordered_map to make life simple 🔢
+```
+Example : 
+        //Let's say, you want to store different evaluate logic for different operator "+", "-", "*", "/"
+	unordered_map<string, function<int (int, int) > > mp = {
+            { "+" , [] (int a, int b) { return a + b; } },
+            { "-" , [] (int a, int b) { return a - b; } },
+            { "*" , [] (int a, int b) { return a * b; } },
+            { "/" , [] (int a, int b) { return a / b; } }
+        };
+	
+	//Simply use it like below :-
+	int result = mp["+"](1, 2); //This will return 1+2 i.e. 3
+	
+	Qns on Leetcode: 150
+	Leetcode - : Evaluate Reverse Polish Notation
+```
+📝 std::set_difference and std::back_inserter 🔢
+```
+set_difference -> Copies the elements from the sorted s1 which are not found in the sorted s2 to a container in sorted order
+back_inserter -> Can be used to add elements to the end of a container
+Example : 
+        set<int> st1, st2;
+	vector<int> v1;
+	//Find difference in between set1 and set2 and put unique element of set1 in v1
+	set_difference(begin(st1), end(st1), begin(st2), end(st2), back_inserter(v1));
+	
+	Qns on Leetcode: 2215
+	Leetcode - : Find the Difference of Two Arrays
+```
