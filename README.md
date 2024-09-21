@@ -6,20 +6,20 @@ I will be using "int, string etc" for ease and not complex entities like pairs, 
 
 #📝Different ways of using priority_queue (i.e. heap) 🗻
 • Default declarations
-```
+```cpp
 priority_queue<int> pq;                            //creates max-heap
 priority_queue<int, vector<int>> pq;               //creates max-heap
 ```
 
 • writing comparator function for priority_queue
-```
+```cpp
 1. Using in-built comparator provided by C++ : 
 
 priority_queue<int, vector<int>, greater<int>> pq;  //creates min-heap
 priority_queue< pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>> > pq; //min_heap of pairs
 priority_queue< pair<int, int>, vector<pair<int, int>>, greater<> > pq;               //min_heap of pairs
 ```
-```
+```cpp
 2. Using user defined comparator as a structure
 
 struct comp {
@@ -31,7 +31,7 @@ struct comp {
 
 priority_queue<int, vector<int>, comp> pq;  //usage
 ```
-```
+```cpp
 3. Using user defined comparator as a function
 
 static bool comp(int &a, int &b) {
@@ -41,7 +41,7 @@ static bool comp(int &a, int &b) {
 
 priority_queue<int, vector<int>, function<bool(int&, int&)> > pq(comp);   //usage
 ```
-```
+```cpp
 4. Using lambda function
 
 auto comp = [](int &a, int &b) {
@@ -61,7 +61,7 @@ auto comp = [&mp](int &a, int &b) {
 };
 ```
 When and why to use std::move() ⬅️
-```
+```cpp
 /*
     To efficiently transfer the resources from source to target.
     By efficient, I mean no usage of extra space and time for creating copy.
@@ -97,7 +97,7 @@ Examples :
     */
 ```
 📝 std::accumulate(begin_iterator, end_iterator, initial_sum) ➕
-```
+```cpp
 int sum = 0;
 vector<int> nums{1, 3, 2, 5};
 sum = accumulate(begin(nums), end(nums), 0);
@@ -107,7 +107,7 @@ cout << sum; //11
 Benefit : You didn't have to write for loop to find the sum
 ```
 📝 std::accumulate(begin_iterator, end_iterator, initial_sum, lambda) ➕
-```
+```cpp
 lambda : Binary operation taking an element of type <initial_sum> as first argument and an
             element in the range as second, and which returns a value that can be assigned to type T.
 
@@ -140,7 +140,7 @@ Leetcode-1577 (My Approach - https://leetcode.com/problems/number-of-ways-where-
 Leetcode-1572 (My Approach - https://leetcode.com/problems/matrix-diagonal-sum/discuss/3498479/Using-C%2B%2B-STL-%3A-accumulate)
 ```
 📝 min_element(begin_iterator, end_iterator), max_element(begin_iterator, end_iterator), minmax_element(begin_iterator, end_iterator) 😲
-```
+```cpp
 vector<int> nums{1, 3, 2, 5};
 
 int minimumValue = *min_element(begin(nums), end(nums)); //1
@@ -154,7 +154,7 @@ int maximumValue  = *itr.second; //remember, second is maximum //5
 Benefit : You didn't have to write for loop to find the max or min element
 ```
 📝 upper_bound(), lower_bound() in sorted vector, ordered set, ordered map 📤
-```
+```cpp
 
 For vector:
 vector<int> vec{10,20,30,30,20,10,10,20};
@@ -178,7 +178,7 @@ Example : My Calendar I (Leetcode - 729) -
          You can find it in my interview_ds_algo repository as well B-)
 ```
 📝 std::rotate 🌀
-```
+```cpp
 vector<int> vec{1, 2, 3, 4};
 int n = vec.size();
 int k = 2;
@@ -188,7 +188,7 @@ rotate(vec.begin(), vec.begin()+k, vec.end());   //Left Rotate by K times
 rotate(vec.begin(), vec.begin()+n-k, vec.end()); //Right Rotate by K times
 ```
 📝 To check if some rotation of string s can become string t🌀
-```
+```cpp
 string s = "abcde";
 string t = "cdeab";
 
@@ -196,7 +196,7 @@ cout << (s.length() == t.length() && (s+s).find(t) != string::npos) << endl;
 
 ```
 📝 std::next_permutation ➡️
-```
+```cpp
 It gives the next lexicographically greater permutation.
 So, if the container is already the greatest permutation (descending order), it returns nothing.
 
@@ -216,7 +216,7 @@ But I have never encountered any question where it's required till now. So you c
     etc.
 ```
 📝 std::stringstream ⏩
-```
+```cpp
 Usage:
 1) Converting string to number
 2) Count number of words in a string
@@ -261,7 +261,7 @@ Example-3
     etc.
 ```
 📝 std::transform(InputIterator first1, InputIterator last1, OutputIterator result, UnaryOperation op) 🤖
-```
+```cpp
 Applies an operation sequentially to the elements of one (1) or
 two (2) ranges and stores the result in the range that begins at result.
 Uage :
@@ -280,7 +280,7 @@ Example :
     cout << line << endl;
 ```
 📝 std::regex_replace 📟
-```
+```cpp
 It converts a regular expression given by user to desired expression given by user.
 
 Example : 
@@ -301,7 +301,7 @@ Example :
     etc.
 ```
 📝 std::copy_if 🔢
-```
+```cpp
 Copies the elements to a container
 how copy_if function works : in this function you have to pass four parameters 
 copy_if(begin iterator , end iterator , destination , condition)
@@ -322,7 +322,7 @@ Example :
     etc.
 ```
 📝 Writing lambda for upper_bound or lower_bound for vector<pair<int, string>> 🔢
-```
+```cpp
 Example-1 : 
         //Let's say you want upper_bound for a variable timestamp, take it in a pair (because it's a vector of pair)
         pair<int, string> ref = make_pair(timestamp, "");
@@ -345,7 +345,7 @@ Example-2 :
 	Leetcode - 1351 : Count Negative Numbers in a Sorted Matrix
 ```
 📝 Writing lambda for unordered_map to make life simple 🔢
-```
+```cpp
 Example : 
         //Let's say, you want to store different evaluate logic for different operator "+", "-", "*", "/"
 	unordered_map<string, function<int (int, int) > > mp = {
@@ -362,7 +362,7 @@ Example :
 	Leetcode - : Evaluate Reverse Polish Notation
 ```
 📝 std::set_difference and std::back_inserter 🔢
-```
+```cpp
 set_difference -> Copies the elements from the sorted s1 which are not found in the sorted s2 to a container in sorted order
 back_inserter -> Can be used to add elements to the end of a container
 Example : 
